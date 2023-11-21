@@ -510,14 +510,9 @@
     "relativePath": "scene"
   },
   "6154a6fe-bafd-443d-a83a-1e272e6aa7d0": {
-    "asset": 1700103445574,
-    "meta": 1700183489010,
+    "asset": 1700533307806,
+    "meta": 1700533376342,
     "relativePath": "script"
-  },
-  "dd4e4c78-52ff-47b5-ac5e-ee3e67a5539a": {
-    "asset": 1700532881388,
-    "meta": 1700532881393,
-    "relativePath": "scene/MainScene.fire"
   },
   "c781e3e9-a7d2-460a-8215-d348cca73f77": {
     "asset": 1700041036043,
@@ -605,13 +600,18 @@
     "relativePath": "script/playGame/PlayGame.ts"
   },
   "cf3d558a-15f7-45b7-b27d-27b3a1140e70": {
-    "asset": 1700103614426,
-    "meta": 1700103718179,
+    "asset": 1700540787121,
+    "meta": 1700540814627,
     "relativePath": "script/ItemPrefab.ts"
   },
+  "dd4e4c78-52ff-47b5-ac5e-ee3e67a5539a": {
+    "asset": 1700540838869,
+    "meta": 1700540838886,
+    "relativePath": "scene/MainScene.fire"
+  },
   "a4f9e9ef-d543-4950-941d-31c0af37e03a": {
-    "asset": 1700532966267,
-    "meta": 1700532967085,
+    "asset": 1700542370790,
+    "meta": 1700542372134,
     "relativePath": "script/playGame/newPlayGame.ts"
   }
 }

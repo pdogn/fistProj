@@ -1000,7 +1000,7 @@
         "__id__": 21
       }
     ],
-    "_N$interactable": false,
+    "_N$interactable": true,
     "_N$enableAutoGrayEffect": false,
     "_N$transition": 0,
     "transition": 0,

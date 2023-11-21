@@ -20,7 +20,7 @@ export default class NewClass extends cc.Component {
 
     arrayItem = [];
 
-    arrItem1 = [2, 1, 1];
+    arrItem1 = [];
     arrItem2 = [2, 3, 3];
     arrItem3 = [3, 2, 2];
     arrItem4 = [1, 3, 1];
@@ -65,16 +65,17 @@ export default class NewClass extends cc.Component {
         if (this.idxClick == -1) {
             //chon diem bat dau
             // arrItemClick cua item bay len
-            console.log("click chinh no ==> bay bong len ", arrItemClick);
-            this.moveBall(arrItemClick, layerItemClick, 1, layerItemClick);
-
-            this.idxClick = idItem;
+            if (layerItemClick.childrenCount > 0) {
+                console.log("click chinh no ==> bay bong len ", arrItemClick);
+                this.moveBall(arrItemClick, layerItemClick, 1, layerItemClick);
+                this.idxClick = idItem;
+            }
+            this.idxClick == -1
         } else {
             if (this.idxClick == idItem) {
                 // chon dich den la diem bat dau
                 console.log("click chinh no lan nua ==> tha bong xuong");
                 this.moveBall(arrItemClick, layerItemClick, 0, layerItemClick)
-
                 this.idxClick = -1;
             } else {
                 // chon dich den la diem khac
@@ -184,6 +185,7 @@ export default class NewClass extends cc.Component {
                     .start();
             } else if (idx == 2) {
                 layerIn.getComponent(cc.Button).interactable = false;
+                layerOut.getComponent(cc.Button).interactable = false;
                 cc.tween(icon)
                     .to(0.2, { x: pos1.x })
                     .to(0.2, { y: layerIn.childrenCount * 50 })
@@ -194,6 +196,7 @@ export default class NewClass extends cc.Component {
                         icon.setPosition(0, layerIn.childrenCount * 50);
                         layerIn.addChild(icon);
                         layerIn.getComponent(cc.Button).interactable = true;
+                        layerOut.getComponent(cc.Button).interactable = true;
                     })
                     .start();
             }
