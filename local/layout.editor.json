@@ -13,13 +13,13 @@
         "type": "dock-h",
         "children": [
           {
-            "width": 405.75,
+            "width": 406,
             "height": 900,
             "type": "dock-v",
             "children": [
               {
-                "width": 405.75,
-                "height": 449.125,
+                "width": 406,
+                "height": 449,
                 "type": "panel",
                 "active": 0,
                 "children": [
@@ -27,8 +27,8 @@
                 ]
               },
               {
-                "width": 405.75,
-                "height": 447.875,
+                "width": 406,
+                "height": 448,
                 "type": "panel",
                 "active": 0,
                 "children": [
@@ -38,13 +38,13 @@
             ]
           },
           {
-            "width": 772.796875,
+            "width": 773,
             "height": 900,
             "type": "dock-v",
             "children": [
               {
-                "width": 772.796875,
-                "height": 449.125,
+                "width": 773,
+                "height": 449,
                 "type": "panel",
                 "active": 0,
                 "children": [
@@ -52,8 +52,8 @@
                 ]
               },
               {
-                "width": 772.796875,
-                "height": 447.875,
+                "width": 773,
+                "height": 448,
                 "type": "panel",
                 "active": 0,
                 "children": [
@@ -65,7 +65,7 @@
             ]
           },
           {
-            "width": 735.421875,
+            "width": 735,
             "height": 900,
             "type": "panel",
             "active": 0,
@@ -88,8 +88,25 @@
         "cocos-services",
         "node-library"
       ]
+    },
+    " common-asset-worker-worker": {},
+    "window-1701055404706": {},
+    " build-worker-worker": {},
+    " compile-worker-worker": {}
+  },
+  "panels": {
+    "sprite-editor": {
+      "x": 710,
+      "y": 228,
+      "width": 500,
+      "height": 528
+    },
+    "builder": {
+      "x": 710,
+      "y": 128,
+      "width": 500,
+      "height": 728
     }
   },
-  "panels": {},
   "panelLabelWidth": {}
 }

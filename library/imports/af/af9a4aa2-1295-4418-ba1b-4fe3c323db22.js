@@ -45,6 +45,7 @@ var Item = /** @class */ (function (_super) {
     Item.prototype.start = function () {
     };
     Item.prototype.onClickItem = function () {
+        console.log("qwer", this.idItem);
         this.node.emit("Click_binh", this);
     };
     Item.prototype.reset = function () {

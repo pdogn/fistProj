@@ -36,9 +36,9 @@ var NewClass = /** @class */ (function (_super) {
         _this.layer3 = null;
         _this.layer4 = null;
         _this.arrayItem = [];
-        _this.arrItem1 = [];
-        _this.arrItem2 = [2, 3, 3];
-        _this.arrItem3 = [3, 2, 2];
+        _this.arrItem1 = [3, 1, 1];
+        _this.arrItem2 = [3, 2, 2];
+        _this.arrItem3 = [2, 2, 3];
         _this.arrItem4 = [1, 3, 1];
         _this.idxClick = -1;
         return _this;
@@ -147,8 +147,8 @@ var NewClass = /** @class */ (function (_super) {
         var maxItem = arrItemClick.length + arrMove.length;
         if (maxItem > 4) {
             this.moveBall(arrItem, layerOut, 0, layerIn);
-            return arrItem;
             console.log("maxItem ==> khong di chuyen duoc", arrItemClick, arrItem);
+            return arrItem;
         }
         else {
             // xu ly di chuyen
@@ -160,6 +160,11 @@ var NewClass = /** @class */ (function (_super) {
                 this.moveBall(arrItem, layerOut, 2, layerIn);
                 var index = arrItem.length - arrMove.length;
                 arrItem = arrItem.slice(0, index);
+                // for (let i = 0; i < arrItemClick.length; i++) {
+                //     if (arrItemClick[i] = arrMove[0] && arrItemClick.length == 4) {
+                //         layerIn.getComponent(cc.Button).interactable = false;
+                //     }
+                // }
                 console.log("ban dau slice : ", arrItem);
                 console.log("dich den sau khi di chuyen: ", arrItemClick);
                 return arrItem;
@@ -192,12 +197,15 @@ var NewClass = /** @class */ (function (_super) {
         var _loop_1 = function (i) {
             var icon = layerOut.children[arrIndexRemove[i]];
             // console.log("quang layerOut.children -=-=-=-=-=-", layerOut.children)
-            // console.log("quang arrIndexRemove -=-=-=-=-=-", arrIndexRemove)
-            var pos = layerIn.parent.convertToWorldSpaceAR(layerIn.position);
-            var pos1 = icon.convertToNodeSpaceAR(pos);
+            console.log("quang arrIndexRemove -=-=-=-=-=-", arrIndexRemove, arrIndexRemove[i]);
+            // let pos = layerIn.parent.convertToWorldSpaceAR(layerIn.position);
+            // let pos1 = icon.convertToNodeSpaceAR(pos);
             if (idx == 1) {
                 cc.tween(icon)
-                    .to(0.2, { y: layerOut.position.y + 300 + i * -50 })
+                    .to(0.2, { y: layerOut.position.y + 300 + i * -30 })
+                    .call(function () {
+                    console.log("quanghh=-=-=-", layerOut.position.y + 300 + i * -30);
+                })
                     .start();
             }
             else if (idx == 0) {
@@ -208,15 +216,20 @@ var NewClass = /** @class */ (function (_super) {
             else if (idx == 2) {
                 layerIn.getComponent(cc.Button).interactable = false;
                 layerOut.getComponent(cc.Button).interactable = false;
+                icon.setParent(layerIn);
+                var a = layerOut.parent.convertToWorldSpaceAR(layerOut.position);
+                var b = icon.convertToNodeSpaceAR(a);
+                icon.setPosition(b.x, layerOut.position.y + 300);
+                console.log("quanghh=-=-=-", i);
                 cc.tween(icon)
-                    .to(0.2, { x: pos1.x })
-                    .to(0.2, { y: layerIn.childrenCount * 50 })
-                    .delay(0.1).call(function () {
+                    .to(0.3, { x: 0 })
+                    .to(0.3, { y: layerIn.position.y + (layerIn.childrenCount - 1) * 50 })
+                    .call(function () {
                     layerOut.removeChild(icon, true);
                 })
                     .call(function () {
-                    icon.setPosition(0, layerIn.childrenCount * 50);
-                    layerIn.addChild(icon);
+                    // icon.setPosition(0, layerIn.childrenCount * 50);
+                    // layerIn.addChild(icon);
                     layerIn.getComponent(cc.Button).interactable = true;
                     layerOut.getComponent(cc.Button).interactable = true;
                 })
