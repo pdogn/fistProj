@@ -21,7 +21,7 @@ export default class NewClass extends cc.Component {
     arrayItem = [];
 
     arrItem1 = [];
-    arrItem2 = [2, 3, 3];
+    arrItem2 = [3, 3, 3, 3];
     arrItem3 = [3, 2, 2];
     arrItem4 = [1, 3, 1];
 
@@ -127,8 +127,8 @@ export default class NewClass extends cc.Component {
         let maxItem = arrItemClick.length + arrMove.length;
         if (maxItem > 4) {
             this.moveBall(arrItem, layerOut, 0, layerIn);
-            return arrItem;
             console.log("maxItem ==> khong di chuyen duoc", arrItemClick, arrItem)
+            return arrItem;
         } else {
             // xu ly di chuyen
             // check cung mau cho di chuyen
@@ -171,13 +171,13 @@ export default class NewClass extends cc.Component {
         for (let i = 0; i < arrIndexRemove.length; i++) {
             let icon = layerOut.children[arrIndexRemove[i]];
             // console.log("quang layerOut.children -=-=-=-=-=-", layerOut.children)
-            // console.log("quang arrIndexRemove -=-=-=-=-=-", arrIndexRemove)
+            console.log("quang arrIndexRemove -=-=-=-=-=-", arrIndexRemove[i])
 
-            let pos = layerIn.parent.convertToWorldSpaceAR(layerIn.position);
-            let pos1 = icon.convertToNodeSpaceAR(pos);
+            // let pos = layerIn.parent.convertToWorldSpaceAR(layerIn.position);
+            // let pos1 = icon.convertToNodeSpaceAR(pos);
             if (idx == 1) {
                 cc.tween(icon)
-                    .to(0.2, { y: layerOut.position.y + 300 + i * -50 })
+                    .to(0.2, { y: layerOut.position.y + 300 + i * -30 })
                     .start();
             } else if (idx == 0) {
                 cc.tween(icon)
@@ -186,15 +186,19 @@ export default class NewClass extends cc.Component {
             } else if (idx == 2) {
                 layerIn.getComponent(cc.Button).interactable = false;
                 layerOut.getComponent(cc.Button).interactable = false;
+                icon.setParent(layerIn);
+                let a = layerOut.parent.convertToWorldSpaceAR(layerOut.position);
+                let b = icon.convertToNodeSpaceAR(a);
+                icon.setPosition(b.x, layerOut.position.y + 300 + arrIndexRemove[i] * -30)
                 cc.tween(icon)
-                    .to(0.2, { x: pos1.x })
-                    .to(0.2, { y: layerIn.childrenCount * 50 })
-                    .delay(0.1).call(() => {
+                    .to(0.3, { x: 0 })
+                    .to(0.3, { y: layerIn.position.y + i * 50 })
+                    .call(() => {
                         layerOut.removeChild(icon, true);
                     })
                     .call(() => {
-                        icon.setPosition(0, layerIn.childrenCount * 50);
-                        layerIn.addChild(icon);
+                        // icon.setPosition(0, layerIn.childrenCount * 50);
+                        // layerIn.addChild(icon);
                         layerIn.getComponent(cc.Button).interactable = true;
                         layerOut.getComponent(cc.Button).interactable = true;
                     })
