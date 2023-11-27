@@ -20,9 +20,9 @@ export default class NewClass extends cc.Component {
 
     arrayItem = [];
 
-    arrItem1 = [];
-    arrItem2 = [3, 3, 3, 3];
-    arrItem3 = [3, 2, 2];
+    arrItem1 = [3, 1, 1];
+    arrItem2 = [3, 2, 2];
+    arrItem3 = [2, 2, 3];
     arrItem4 = [1, 3, 1];
 
     idxClick: number = -1;
@@ -171,7 +171,7 @@ export default class NewClass extends cc.Component {
         for (let i = 0; i < arrIndexRemove.length; i++) {
             let icon = layerOut.children[arrIndexRemove[i]];
             // console.log("quang layerOut.children -=-=-=-=-=-", layerOut.children)
-            console.log("quang arrIndexRemove -=-=-=-=-=-", arrIndexRemove[i])
+            console.log("quang arrIndexRemove -=-=-=-=-=-", arrIndexRemove, arrIndexRemove[i])
 
             // let pos = layerIn.parent.convertToWorldSpaceAR(layerIn.position);
             // let pos1 = icon.convertToNodeSpaceAR(pos);
@@ -189,10 +189,10 @@ export default class NewClass extends cc.Component {
                 icon.setParent(layerIn);
                 let a = layerOut.parent.convertToWorldSpaceAR(layerOut.position);
                 let b = icon.convertToNodeSpaceAR(a);
-                icon.setPosition(b.x, layerOut.position.y + 300 + arrIndexRemove[i] * -30)
+                icon.setPosition(b.x, layerOut.position.y + 300)
                 cc.tween(icon)
                     .to(0.3, { x: 0 })
-                    .to(0.3, { y: layerIn.position.y + i * 50 })
+                    .to(0.3, { y: layerIn.position.y + (layerIn.childrenCount - 1) * 50 })
                     .call(() => {
                         layerOut.removeChild(icon, true);
                     })

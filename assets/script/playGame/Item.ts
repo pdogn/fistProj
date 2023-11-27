@@ -21,7 +21,7 @@ export default class Item extends cc.Component {
 
     }
     setUp(index, arrColor: number[]) {
-        this.reset()
+        this.reset();
         this.idItem = index;
         this.arrColor = arrColor;
 
@@ -30,6 +30,7 @@ export default class Item extends cc.Component {
 
     }
     onClickItem() {
+        console.log("qwer", this.idItem)
         this.node.emit("Click_binh", this)
     }
 
