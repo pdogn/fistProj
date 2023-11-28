@@ -550,8 +550,8 @@
     "relativePath": "resources/prefab/playGame/prefab"
   },
   "dd4e4c78-52ff-47b5-ac5e-ee3e67a5539a": {
-    "asset": 1701144129797,
-    "meta": 1701144129808,
+    "asset": 1701154161600,
+    "meta": 1701154161612,
     "relativePath": "scene/MainScene.fire"
   },
   "7c1b2ec7-90bf-4b61-98c2-11b80fa391cc": {
@@ -610,8 +610,8 @@
     "relativePath": "script/ItemPrefab.ts"
   },
   "a4f9e9ef-d543-4950-941d-31c0af37e03a": {
-    "asset": 1701144170012,
-    "meta": 1701144171981,
+    "asset": 1701162346872,
+    "meta": 1701162348597,
     "relativePath": "script/playGame/newPlayGame.ts"
   }
 }

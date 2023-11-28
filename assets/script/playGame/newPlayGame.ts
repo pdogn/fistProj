@@ -7,17 +7,27 @@ const { ccclass, property } = cc._decorator;
 export default class NewClass extends cc.Component {
     @property(cc.Node)
     iconPrefab: cc.Node = null;
+
     @property(cc.Prefab)
     item: cc.Prefab = null;
+
     @property(cc.Node)
     layer: cc.Node = null;
 
+    @property(cc.Node)
+    layer1: cc.Node = null;
+
     mapData: number[][] = [];
     arrayItem: number[] = [
-        3, 2, 2, -1,
-        1, 1, 3, -1,
-        3, 2, 1, -1,
-        2, 1, 3, -1];
+        2, 2, 3, -1,
+        2, 2, 2, 2,
+        2, -1, -3, -1,
+        2, 2, -2, -2,
+        2, 2, -3, -1,
+        2, 2, -2, -2,
+        2, -1, -3, -1,
+        2, 2, 2, -2
+    ];
 
     layerOut: cc.Node = null;
     indexArrayOut: number = -1;
@@ -40,9 +50,15 @@ export default class NewClass extends cc.Component {
                     this.mapData[i] = this.mapData[i].slice(0, j)
                 }
             }
-            var item = cc.instantiate(this.item);
+            let item = cc.instantiate(this.item);
             item.setParent(this.layer);
-            item.setPosition(-150 + i * 150, 0);
+            if (i < 4) {
+                item.setPosition(this.layer1.children[i].getPosition());
+            } else {
+                // item.y = -100;
+                item.setPosition(this.layer1.children[i].getPosition());
+            }
+            console.log("-==-=positons=-==", item.y)
             item.active = true;
             item.name = ("item" + i)
             this.createIcon(this.mapData[i], item);
@@ -133,7 +149,7 @@ export default class NewClass extends cc.Component {
         }
 
     }
-    moveBall(arrItem, layerOut, idx, layerIn) {
+    moveBall(arrItem, layerOut: cc.Node, idx, layerIn) {
         let arrMove = [arrItem[arrItem.length - 1]];
         if (arrItem.length > 1) {
             for (let i = arrItem.length - 2; i > -1; i--) {
@@ -156,32 +172,33 @@ export default class NewClass extends cc.Component {
             console.log("quang layerOut.children -=-=-=-=-=-", layerOut.children)
             console.log("quang arrIndexRemove -=-=-=-=-=-", arrIndexRemove, arrIndexRemove[i])
 
-            // let pos = layerIn.parent.convertToWorldSpaceAR(layerIn.position);
-            // let pos1 = icon.convertToNodeSpaceAR(pos);
+            let p = new cc.Vec3(0, layerOut.height * layerOut.scaleY * 1.2)
             if (idx == 1) {
+                icon.stopAllActions()
                 cc.tween(icon)
-                    .to(0.2, { y: layerOut.position.y + 300 + i * -30 })
+                    .to(0.2, { position: p })
                     .start();
             } else if (idx == 0) {
                 cc.tween(icon)
-                    .to(0.2, { y: layerOut.position.y + arrIndexRemove[i] * 50 })
+                    .to(0.2, { y: arrIndexRemove[i] * 50 })
                     .start();
             } else if (idx == 2) {
+                icon.stopAllActions()
                 layerIn.getComponent(cc.Button).interactable = false;
                 layerOut.getComponent(cc.Button).interactable = false;
+                let a = icon.parent.convertToWorldSpaceAR(icon.position);
+                let b = layerIn.convertToNodeSpaceAR(a);
                 icon.setParent(layerIn);
-                let a = layerOut.parent.convertToWorldSpaceAR(layerOut.position);
-                let b = icon.convertToNodeSpaceAR(a);
-                icon.setPosition(b.x, layerOut.position.y + 300)
+                icon.setPosition(b);
+
                 cc.tween(icon)
-                    .to(0.2, { x: 0 })
-                    .to(0.2, { y: layerIn.position.y + (layerIn.childrenCount - 1) * 50 })
+                    .to(0.2, { y: p.y })
+                    .to(0.2, { x: p.x })
+                    .to(0.2, { y: (layerIn.childrenCount - 1) * 50 })
                     .call(() => {
                         layerOut.removeChild(icon, true);
                     })
                     .call(() => {
-                        // icon.setPosition(0, layerIn.childrenCount * 50);
-                        // layerIn.addChild(icon);
                         layerIn.getComponent(cc.Button).interactable = true;
                         layerOut.getComponent(cc.Button).interactable = true;
                     })
@@ -197,7 +214,8 @@ export default class NewClass extends cc.Component {
             icon.getComponent(ItemPrefab).setIndex(arr[i]);
             icon.setParent(layer);
             icon.x = 0;
-            icon.y = pos.y + i * 50;
+            icon.y = i * 50;
+            console.log("==-=-=-pos.y", pos.y + i * 50)
         }
     }
     sliceArr(arr: number[], count: number): number[][] {

@@ -33,12 +33,17 @@ var NewClass = /** @class */ (function (_super) {
         _this.iconPrefab = null;
         _this.item = null;
         _this.layer = null;
+        _this.layer1 = null;
         _this.mapData = [];
         _this.arrayItem = [
-            3, 2, 2, -1,
-            1, 1, 3, -1,
-            3, 2, 1, -1,
-            2, 1, 3, -1
+            2, 2, 3, -1,
+            2, 2, 2, 2,
+            2, -1, -3, -1,
+            2, 2, -2, -2,
+            2, 2, -3, -1,
+            2, 2, -2, -2,
+            2, -1, -3, -1,
+            2, 2, 2, -2
         ];
         _this.layerOut = null;
         _this.indexArrayOut = -1;
@@ -61,21 +66,27 @@ var NewClass = /** @class */ (function (_super) {
                     this_1.mapData[i] = this_1.mapData[i].slice(0, j);
                 }
             }
-            item = cc.instantiate(this_1.item);
+            var item = cc.instantiate(this_1.item);
             item.setParent(this_1.layer);
-            item.setPosition(-150 + i * 150, 0);
+            if (i < 4) {
+                item.setPosition(this_1.layer1.children[i].getPosition());
+            }
+            else {
+                // item.y = -100;
+                item.setPosition(this_1.layer1.children[i].getPosition());
+            }
+            console.log("-==-=positons=-==", item.y);
             item.active = true;
             item.name = ("item" + i);
             this_1.createIcon(this_1.mapData[i], item);
             var scriptItem = item.getComponent(Item_1.default);
             scriptItem.setUp(i, this_1.mapData[i]);
-            console.log("quangngu", this_1.mapData[i], this_1.mapData, i);
             item.on("Click_binh", function () {
                 console.log("this.layer.children[scriptItem.idItem]", _this.layer.children[scriptItem.idItem]);
                 _this.onClickItem(scriptItem.idItem, _this.layer.children[scriptItem.idItem]);
             }, this_1);
         };
-        var this_1 = this, item;
+        var this_1 = this;
         for (var i = 0; i < this.mapData.length; i++) {
             _loop_1(i);
         }
@@ -185,34 +196,37 @@ var NewClass = /** @class */ (function (_super) {
             var icon = layerOut.children[arrIndexRemove[i]];
             console.log("quang layerOut.children -=-=-=-=-=-", layerOut.children);
             console.log("quang arrIndexRemove -=-=-=-=-=-", arrIndexRemove, arrIndexRemove[i]);
-            // let pos = layerIn.parent.convertToWorldSpaceAR(layerIn.position);
-            // let pos1 = icon.convertToNodeSpaceAR(pos);
+            console.log("quang arrIndexRemove -=-=-=-=-=-", layerOut.position.y, arrIndexRemove[i] * 50);
+            var p = new cc.Vec3(0, layerOut.height * layerOut.scaleY * 1.2);
             if (idx == 1) {
+                icon.stopAllActions();
                 cc.tween(icon)
-                    .to(0.2, { y: layerOut.position.y + 300 + i * -30 })
+                    .to(0.2, { position: p })
                     .start();
             }
             else if (idx == 0) {
                 cc.tween(icon)
-                    .to(0.2, { y: layerOut.position.y + arrIndexRemove[i] * 50 })
+                    .to(0.2, { y: arrIndexRemove[i] * 50 })
                     .start();
             }
             else if (idx == 2) {
+                icon.stopAllActions();
                 layerIn.getComponent(cc.Button).interactable = false;
                 layerOut.getComponent(cc.Button).interactable = false;
+                var a = icon.parent.convertToWorldSpaceAR(icon.position);
+                var b = layerIn.convertToNodeSpaceAR(a);
                 icon.setParent(layerIn);
-                var a = layerOut.parent.convertToWorldSpaceAR(layerOut.position);
-                var b = icon.convertToNodeSpaceAR(a);
-                icon.setPosition(b.x, layerOut.position.y + 300);
+                icon.setPosition(b);
+                console.log("qqqq=-=-=--qqq", p.y, layerOut.height * layerOut.scaleY * 1.2);
+                console.log("=======: ", layerIn);
                 cc.tween(icon)
-                    .to(0.2, { x: 0 })
-                    .to(0.2, { y: layerIn.position.y + (layerIn.childrenCount - 1) * 50 })
+                    .to(0.2, { y: p.y })
+                    .to(0.2, { x: p.x })
+                    .to(0.2, { y: (layerIn.childrenCount - 1) * 50 })
                     .call(function () {
                     layerOut.removeChild(icon, true);
                 })
                     .call(function () {
-                    // icon.setPosition(0, layerIn.childrenCount * 50);
-                    // layerIn.addChild(icon);
                     layerIn.getComponent(cc.Button).interactable = true;
                     layerOut.getComponent(cc.Button).interactable = true;
                 })
@@ -232,7 +246,8 @@ var NewClass = /** @class */ (function (_super) {
             icon.getComponent(ItemPrefab_1.default).setIndex(arr[i]);
             icon.setParent(layer);
             icon.x = 0;
-            icon.y = pos.y + i * 50;
+            icon.y = i * 50;
+            console.log("==-=-=-pos.y", pos.y + i * 50);
         }
     };
     NewClass.prototype.sliceArr = function (arr, count) {
@@ -252,6 +267,9 @@ var NewClass = /** @class */ (function (_super) {
     __decorate([
         property(cc.Node)
     ], NewClass.prototype, "layer", void 0);
+    __decorate([
+        property(cc.Node)
+    ], NewClass.prototype, "layer1", void 0);
     NewClass = __decorate([
         ccclass
     ], NewClass);

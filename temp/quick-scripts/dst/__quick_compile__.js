@@ -1,6 +1,6 @@
 
 (function () {
-var scripts = [{"deps":{"./assets/script/playGame/Item":3,"./assets/script/playGame/PlayGame":5,"./assets/script/playGame/newPlayGame":4,"./assets/script/playGame/Ball":2,"./assets/script/ItemPrefab":1},"path":"preview-scripts/__qc_index__.js"},{"deps":{},"path":"preview-scripts/assets/script/ItemPrefab.js"},{"deps":{},"path":"preview-scripts/assets/script/playGame/Ball.js"},{"deps":{},"path":"preview-scripts/assets/script/playGame/Item.js"},{"deps":{"./Item":3,"../ItemPrefab":1},"path":"preview-scripts/assets/script/playGame/newPlayGame.js"},{"deps":{"./Ball":2,"./Item":3},"path":"preview-scripts/assets/script/playGame/PlayGame.js"}];
+var scripts = [{"deps":{"./assets/script/playGame/Item":3,"./assets/script/playGame/PlayGame":5,"./assets/script/playGame/newPlayGame":4,"./assets/script/playGame/Ball":2,"./assets/script/ItemPrefab":1},"path":"preview-scripts/__qc_index__.js"},{"deps":{},"path":"preview-scripts/assets/script/ItemPrefab.js"},{"deps":{},"path":"preview-scripts/assets/script/playGame/Ball.js"},{"deps":{},"path":"preview-scripts/assets/script/playGame/Item.js"},{"deps":{"../ItemPrefab":1,"./Item":3},"path":"preview-scripts/assets/script/playGame/newPlayGame.js"},{"deps":{"./Ball":2,"./Item":3},"path":"preview-scripts/assets/script/playGame/PlayGame.js"}];
 var entries = ["preview-scripts/__qc_index__.js"];
 var bundleScript = 'preview-scripts/__qc_bundle__.js';
 
