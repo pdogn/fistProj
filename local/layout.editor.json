@@ -44,7 +44,7 @@
             "children": [
               {
                 "width": 773,
-                "height": 449,
+                "height": 514,
                 "type": "panel",
                 "active": 0,
                 "children": [
@@ -53,7 +53,7 @@
               },
               {
                 "width": 773,
-                "height": 448,
+                "height": 383,
                 "type": "panel",
                 "active": 0,
                 "children": [
@@ -88,11 +88,7 @@
         "cocos-services",
         "node-library"
       ]
-    },
-    " common-asset-worker-worker": {},
-    "window-1701055404706": {},
-    " build-worker-worker": {},
-    " compile-worker-worker": {}
+    }
   },
   "panels": {
     "sprite-editor": {

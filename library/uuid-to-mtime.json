@@ -519,14 +519,9 @@
     "meta": 1701055396454,
     "relativePath": "resources/prefab"
   },
-  "cf3d558a-15f7-45b7-b27d-27b3a1140e70": {
-    "asset": 1700809937225,
-    "meta": 1701055396482,
-    "relativePath": "script/ItemPrefab.ts"
-  },
   "c781e3e9-a7d2-460a-8215-d348cca73f77": {
-    "asset": 1701054331837,
-    "meta": 1701055396483,
+    "asset": 1701060400283,
+    "meta": 1701079502648,
     "relativePath": "script/playGame"
   },
   "2f52957f-a321-4907-9694-c1e22b74655b": {
@@ -538,11 +533,6 @@
     "asset": 1699949431732,
     "meta": 1701055396496,
     "relativePath": "script/playGame/Ball.ts"
-  },
-  "af9a4aa2-1295-4418-ba1b-4fe3c323db22": {
-    "asset": 1700815744467,
-    "meta": 1701055396511,
-    "relativePath": "script/playGame/Item.ts"
   },
   "53d85676-695d-4312-b953-1b7a98a7baaa": {
     "asset": 1700810243256,
@@ -560,13 +550,13 @@
     "relativePath": "resources/prefab/playGame/prefab"
   },
   "dd4e4c78-52ff-47b5-ac5e-ee3e67a5539a": {
-    "asset": 1701054374348,
-    "meta": 1701055396728,
+    "asset": 1701144129797,
+    "meta": 1701144129808,
     "relativePath": "scene/MainScene.fire"
   },
   "7c1b2ec7-90bf-4b61-98c2-11b80fa391cc": {
-    "asset": 1700817715517,
-    "meta": 1701055396729,
+    "asset": 1701073302587,
+    "meta": 1701073302598,
     "relativePath": "resources/prefab/item.prefab"
   },
   "16f01b6e-4348-4ed5-8797-02bd137179b8": {
@@ -609,9 +599,19 @@
     "meta": 1701055396771,
     "relativePath": "resources/prefab/playGame/image/haikei_4.png"
   },
+  "af9a4aa2-1295-4418-ba1b-4fe3c323db22": {
+    "asset": 1701072799645,
+    "meta": 1701072805374,
+    "relativePath": "script/playGame/Item.ts"
+  },
+  "cf3d558a-15f7-45b7-b27d-27b3a1140e70": {
+    "asset": 1701073276894,
+    "meta": 1701073281326,
+    "relativePath": "script/ItemPrefab.ts"
+  },
   "a4f9e9ef-d543-4950-941d-31c0af37e03a": {
-    "asset": 1701072157330,
-    "meta": 1701072158428,
+    "asset": 1701144170012,
+    "meta": 1701144171981,
     "relativePath": "script/playGame/newPlayGame.ts"
   }
 }

@@ -6,26 +6,21 @@ const { ccclass, property } = cc._decorator;
 @ccclass
 export default class NewClass extends cc.Component {
     @property(cc.Node)
-    itemPrefab: cc.Node = null;
+    iconPrefab: cc.Node = null;
+    @property(cc.Prefab)
+    item: cc.Prefab = null;
     @property(cc.Node)
     layer: cc.Node = null;
-    @property(cc.Node)
-    layer1: cc.Node = null;
-    @property(cc.Node)
-    layer2: cc.Node = null;
-    @property(cc.Node)
-    layer3: cc.Node = null;
-    @property(cc.Node)
-    layer4: cc.Node = null;
 
-    arrayItem = [];
+    mapData: number[][] = [];
+    arrayItem: number[] = [
+        3, 2, 2, -1,
+        1, 1, 3, -1,
+        3, 2, 1, -1,
+        2, 1, 3, -1];
 
-    arrItem1 = [3, 1, 1];
-    arrItem2 = [3, 2, 2];
-    arrItem3 = [2, 2, 3];
-    arrItem4 = [1, 3, 1];
-
-    idxClick: number = -1;
+    layerOut: cc.Node = null;
+    indexArrayOut: number = -1;
 
     // LIFE-CYCLE CALLBACKS:
 
@@ -34,70 +29,57 @@ export default class NewClass extends cc.Component {
     }
 
     start() {
-
     }
     // update (dt) {}
     buildMap() {
-        this.arrayItem = [];
-        this.arrayItem.push(this.arrItem1, this.arrItem2, this.arrItem3, this.arrItem4)
-        for (let i = 0; i < this.arrayItem.length; i++) {
-            this.createItem(this.arrayItem[i], this.layer.children[i]);
+        this.mapData = this.sliceArr(this.arrayItem, 4);
+        console.log(this.mapData)
+        for (let i = 0; i < this.mapData.length; i++) {
+            for (let j = 0; j < 4; j++) {
+                if (this.mapData[i][j] < 0) {
+                    this.mapData[i] = this.mapData[i].slice(0, j)
+                }
+            }
+            var item = cc.instantiate(this.item);
+            item.setParent(this.layer);
+            item.setPosition(-150 + i * 150, 0);
+            item.active = true;
+            item.name = ("item" + i)
+            this.createIcon(this.mapData[i], item);
+            let scriptItem = item.getComponent(Item);
+            scriptItem.setUp(i, this.mapData[i]);
+            item.on("Click_binh", () => {
+                console.log("this.layer.children[scriptItem.idItem]", this.layer.children[scriptItem.idItem])
+                this.onClickItem(scriptItem.idItem, this.layer.children[scriptItem.idItem])
+            }, this)
         }
     }
-    onHanlderClickLayer1() {
-        console.log("onHanlderClickLayer1");
-        this.onClickItem(1, this.arrItem1, this.layer1);
-    }
-    onHanlderClickLayer2() {
-        console.log("onHanlderClickLayer2");
-        this.onClickItem(2, this.arrItem2, this.layer2);
-    }
-    onHanlderClickLayer3() {
-        console.log("onHanlderClickLayer3");
-        this.onClickItem(3, this.arrItem3, this.layer3);
-    }
-    onHanlderClickLayer4() {
-        console.log("onHanlderClickLayer4");
-        this.onClickItem(4, this.arrItem4, this.layer4);
-    }
-    onClickItem(idItem, arrItemClick, layerItemClick) {
+    onClickItem(idItem, layerItemClick) {
         console.log("onClickItem=--=-=-=");
-        if (this.idxClick == -1) {
+        if (this.indexArrayOut == -1) {
             //chon diem bat dau
             // arrItemClick cua item bay len
+            this.layerOut = layerItemClick;
             if (layerItemClick.childrenCount > 0) {
-                console.log("click chinh no ==> bay bong len ", arrItemClick);
-                this.moveBall(arrItemClick, layerItemClick, 1, layerItemClick);
-                this.idxClick = idItem;
+                console.log("click chinh no ==> bay bong len ", layerItemClick.childrenCount);
+                this.moveBall(this.mapData[idItem], layerItemClick, 1, layerItemClick);
+                this.indexArrayOut = idItem;
             }
-            this.idxClick == -1
         } else {
-            if (this.idxClick == idItem) {
+            if (this.indexArrayOut == idItem) {
                 // chon dich den la diem bat dau
                 console.log("click chinh no lan nua ==> tha bong xuong");
-                this.moveBall(arrItemClick, layerItemClick, 0, layerItemClick)
-                this.idxClick = -1;
+                this.moveBall(this.mapData[idItem], layerItemClick, 0, layerItemClick);
+
             } else {
                 // chon dich den la diem khac
-                if (this.idxClick == 2) {
-                    //   this.moveBall(this.arrItem2, this.layer2, 2, layerItemClick);
-                    this.arrItem2 = this.onHanlderClickLayer(this.arrItem2, arrItemClick, this.layer2, layerItemClick);
-                    console.log("dich den this.arrItem2: ", this.arrItem2);
-                } else if (this.idxClick == 3) {
-                    //   this.moveBall(this.arrItem3, this.layer3, 2, layerItemClick);
-                    this.arrItem3 = this.onHanlderClickLayer(this.arrItem3, arrItemClick, this.layer3, layerItemClick);
-                    console.log("dich den this.arrItem3: ", this.arrItem3);
-                } else if (this.idxClick == 1) {
-                    //   this.moveBall(this.arrItem1, this.layer1, 2, layerItemClick);
-                    this.arrItem1 = this.onHanlderClickLayer(this.arrItem1, arrItemClick, this.layer1, layerItemClick);
-                    console.log("dich den this.arrItem1: ", this.arrItem1);
-                } else if (this.idxClick == 4) {
-                    //   this.moveBall(this.arrItem4, this.layer4, 2, layerItemClick);
-                    this.arrItem4 = this.onHanlderClickLayer(this.arrItem4, arrItemClick, this.layer4, layerItemClick);
-                    console.log("dich den this.arrItem4: ", this.arrItem4);
-                }
-                this.idxClick = -1;
+                console.log("dich den arrItemClick: ", this.mapData[idItem]);
+                console.log("=-=-=-=-quang00=-=-===-: ", this.layerOut);
+                console.log("=-=-=-=-quang00=-=-===-: ", this.indexArrayOut);
+                this.mapData[this.indexArrayOut] = this.onHanlderClickLayer(this.mapData[this.indexArrayOut], this.mapData[idItem], this.layerOut, layerItemClick);
             }
+            this.indexArrayOut = -1;
+            this.layerOut = null;
         }
     }
     onHanlderClickLayer(arrItem = [], arrItemClick = [], layerOut, layerIn) {
@@ -139,7 +121,7 @@ export default class NewClass extends cc.Component {
                 this.moveBall(arrItem, layerOut, 2, layerIn);
                 let index = arrItem.length - arrMove.length;
                 arrItem = arrItem.slice(0, index);
-                console.log("ban dau slice : ", arrItem);
+                console.log("ban dau sau khi slice : ", arrItem);
                 console.log("dich den sau khi di chuyen: ", arrItemClick);
                 return arrItem;
             } else {
@@ -168,9 +150,10 @@ export default class NewClass extends cc.Component {
             arrIndexRemove.push(i);
         }
         console.log("arrIndexRemove=-=-=-=-", arrIndexRemove)
+        console.log("layout=-=-=-=-", layerOut)
         for (let i = 0; i < arrIndexRemove.length; i++) {
             let icon = layerOut.children[arrIndexRemove[i]];
-            // console.log("quang layerOut.children -=-=-=-=-=-", layerOut.children)
+            console.log("quang layerOut.children -=-=-=-=-=-", layerOut.children)
             console.log("quang arrIndexRemove -=-=-=-=-=-", arrIndexRemove, arrIndexRemove[i])
 
             // let pos = layerIn.parent.convertToWorldSpaceAR(layerIn.position);
@@ -191,8 +174,8 @@ export default class NewClass extends cc.Component {
                 let b = icon.convertToNodeSpaceAR(a);
                 icon.setPosition(b.x, layerOut.position.y + 300)
                 cc.tween(icon)
-                    .to(0.3, { x: 0 })
-                    .to(0.3, { y: layerIn.position.y + (layerIn.childrenCount - 1) * 50 })
+                    .to(0.2, { x: 0 })
+                    .to(0.2, { y: layerIn.position.y + (layerIn.childrenCount - 1) * 50 })
                     .call(() => {
                         layerOut.removeChild(icon, true);
                     })
@@ -206,15 +189,24 @@ export default class NewClass extends cc.Component {
             }
         }
     }
-    createItem(arr = [], layer) {
+    createIcon(arr = [], layer) {
         for (let i = 0; i < arr.length; i++) {
-            let item = cc.instantiate(this.itemPrefab);
-            item.getComponent(ItemPrefab).setIndex(arr[i]);
-            item.x = 0;
-            item.y = i * 50;
-            layer.addChild(item);
-
+            let pos = layer.position;
+            let icon = cc.instantiate(this.iconPrefab);
+            console.log("=-=-==", arr[i])
+            icon.getComponent(ItemPrefab).setIndex(arr[i]);
+            icon.setParent(layer);
+            icon.x = 0;
+            icon.y = pos.y + i * 50;
         }
+    }
+    sliceArr(arr: number[], count: number): number[][] {
+        let array: number[][] = [];
+        for (let j = 0; j < arr.length; j += count) {
+            let array1 = arr.slice(j, j + count)
+            array.push(array1)
+        }
+        return array;
     }
 
 }
