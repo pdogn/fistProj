@@ -30,8 +30,13 @@ export default class Item extends cc.Component {
 
     }
     onClickItem() {
-        console.log("qwer", this.idItem)
+        console.log("qwer", this.node.getComponent(cc.Button).interactable)
+
         this.node.emit("Click_binh", this)
+        console.log("qwer", this.node.getComponent(cc.Button).interactable)
+
+        console.log("qwer", this.idItem)
+
     }
 
     reset() {

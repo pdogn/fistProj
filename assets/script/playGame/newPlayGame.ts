@@ -17,21 +17,29 @@ export default class NewClass extends cc.Component {
     @property(cc.Node)
     layer1: cc.Node = null;
 
+    @property(cc.Node)
+    lbWin: cc.Node = null;
+
+    @property(cc.Node)
+    lbGameOver: cc.Node = null;
+
     mapData: number[][] = [];
     arrayItem: number[] = [
-        2, 2, 3, -1,
-        2, 2, 2, 2,
-        2, -1, -3, -1,
-        2, 2, -2, -2,
-        2, 2, -3, -1,
-        2, 2, -2, -2,
-        2, -1, -3, -1,
-        2, 2, 2, -2
+        2, 2, -1, -1,
+        2, 2, -1, -1,
+        1, 1, -3, -1,
+        3, 3, -3, -2,
+        1, 1, -1, -1,
+        3, 3, -3, -2,
     ];
 
     layerOut: cc.Node = null;
     indexArrayOut: number = -1;
-
+    level: number = 1;
+    gameOver: number = 0;
+    aarr: number[] = []
+    clickCount: number = 0;
+    arrBack: number[] = []
     // LIFE-CYCLE CALLBACKS:
 
     onLoad() {
@@ -42,8 +50,14 @@ export default class NewClass extends cc.Component {
     }
     // update (dt) {}
     buildMap() {
+        for (let i = 0; i < this.arrayItem.length; i++) {
+            if (this.arrayItem[i] >= 0) {
+                this.aarr.push(this.arrayItem[i])
+            }
+        }
+
         this.mapData = this.sliceArr(this.arrayItem, 4);
-        console.log(this.mapData)
+        console.log(this.mapData);
         for (let i = 0; i < this.mapData.length; i++) {
             for (let j = 0; j < 4; j++) {
                 if (this.mapData[i][j] < 0) {
@@ -72,16 +86,20 @@ export default class NewClass extends cc.Component {
     }
     onClickItem(idItem, layerItemClick) {
         console.log("onClickItem=--=-=-=");
+
         if (this.indexArrayOut == -1) {
             //chon diem bat dau
             // arrItemClick cua item bay len
+            console.log("onClickItem=--=-=-=", this.mapData);
             this.layerOut = layerItemClick;
             if (layerItemClick.childrenCount > 0) {
                 console.log("click chinh no ==> bay bong len ", layerItemClick.childrenCount);
                 this.moveBall(this.mapData[idItem], layerItemClick, 1, layerItemClick);
                 this.indexArrayOut = idItem;
+                this.clickCount++;
             }
         } else {
+            this.clickCount++;
             if (this.indexArrayOut == idItem) {
                 // chon dich den la diem bat dau
                 console.log("click chinh no lan nua ==> tha bong xuong");
@@ -89,13 +107,17 @@ export default class NewClass extends cc.Component {
 
             } else {
                 // chon dich den la diem khac
-                console.log("dich den arrItemClick: ", this.mapData[idItem]);
-                console.log("=-=-=-=-quang00=-=-===-: ", this.layerOut);
-                console.log("=-=-=-=-quang00=-=-===-: ", this.indexArrayOut);
+                console.log("onClickItem=--=-=-=", this.mapData);
+                // console.log("dich den arrItemClick: ", this.mapData[idItem]);
+                // console.log("=-=-=-=-quang00=-=-===-: ", this.layerOut);
+                // console.log("=-=-=-=-quang00=-=-===-: ", this.indexArrayOut);
                 this.mapData[this.indexArrayOut] = this.onHanlderClickLayer(this.mapData[this.indexArrayOut], this.mapData[idItem], this.layerOut, layerItemClick);
             }
             this.indexArrayOut = -1;
             this.layerOut = null;
+        }
+        if (this.clickCount > 8) {
+            this.lbGameOver.active = true;
         }
     }
     onHanlderClickLayer(arrItem = [], arrItemClick = [], layerOut, layerIn) {
@@ -134,7 +156,7 @@ export default class NewClass extends cc.Component {
                 for (let i = 0; i < arrMove.length; i++) {
                     arrItemClick.push(arrMove[i]);
                 }
-                this.moveBall(arrItem, layerOut, 2, layerIn);
+                this.moveBall(arrItem, layerOut, 2, layerIn, arrItemClick);
                 let index = arrItem.length - arrMove.length;
                 arrItem = arrItem.slice(0, index);
                 console.log("ban dau sau khi slice : ", arrItem);
@@ -149,7 +171,7 @@ export default class NewClass extends cc.Component {
         }
 
     }
-    moveBall(arrItem, layerOut: cc.Node, idx, layerIn) {
+    moveBall(arrItem, layerOut: cc.Node, idx, layerIn, arrItemClick: any = []) {
         let arrMove = [arrItem[arrItem.length - 1]];
         if (arrItem.length > 1) {
             for (let i = arrItem.length - 2; i > -1; i--) {
@@ -167,14 +189,24 @@ export default class NewClass extends cc.Component {
         }
         console.log("arrIndexRemove=-=-=-=-", arrIndexRemove)
         console.log("layout=-=-=-=-", layerOut)
+        let aarr = []
+        for (let i = 0; i < arrItemClick.length; i++) {
+            if (arrItemClick[0] == arrItemClick[i]) {
+                aarr.push(arrItemClick[i])
+            }
+        }
+        if (aarr.length == 4) {
+            this.gameOver++;
+            console.log("this.gameOverthis.gameOverthis.gameOverthis.gameOver: ", this.gameOver, this.aarr.length / 4);
+        }
         for (let i = 0; i < arrIndexRemove.length; i++) {
             let icon = layerOut.children[arrIndexRemove[i]];
             console.log("quang layerOut.children -=-=-=-=-=-", layerOut.children)
             console.log("quang arrIndexRemove -=-=-=-=-=-", arrIndexRemove, arrIndexRemove[i])
 
-            let p = new cc.Vec3(0, layerOut.height * layerOut.scaleY * 1.2)
+            let p = new cc.Vec3(0, layerOut.height * layerOut.scaleY * 1.3 - i * 30)
             if (idx == 1) {
-                icon.stopAllActions()
+                // icon.stopAllActions()
                 cc.tween(icon)
                     .to(0.2, { position: p })
                     .start();
@@ -183,7 +215,7 @@ export default class NewClass extends cc.Component {
                     .to(0.2, { y: arrIndexRemove[i] * 50 })
                     .start();
             } else if (idx == 2) {
-                icon.stopAllActions()
+                // icon.stopAllActions()
                 layerIn.getComponent(cc.Button).interactable = false;
                 layerOut.getComponent(cc.Button).interactable = false;
                 let a = icon.parent.convertToWorldSpaceAR(icon.position);
@@ -199,8 +231,42 @@ export default class NewClass extends cc.Component {
                         layerOut.removeChild(icon, true);
                     })
                     .call(() => {
-                        layerIn.getComponent(cc.Button).interactable = true;
+                        if (aarr.length == 4) {
+                            layerIn.getComponent(cc.Button).interactable = false;
+                        } else {
+                            layerIn.getComponent(cc.Button).interactable = true;
+                        }
                         layerOut.getComponent(cc.Button).interactable = true;
+                        if (this.gameOver == this.aarr.length / 4) {
+                            this.lbWin.active = true;
+                        }
+                    })
+                    .start();
+            } else if (idx == 3) {
+                layerIn.getComponent(cc.Button).interactable = false;
+                layerOut.getComponent(cc.Button).interactable = false;
+                let a = icon.parent.convertToWorldSpaceAR(icon.position);
+                let b = layerIn.convertToNodeSpaceAR(a);
+                icon.setParent(layerIn);
+                icon.setPosition(b);
+
+                cc.tween(icon)
+                    .to(0.2, { y: p.y })
+                    .to(0.2, { x: p.x })
+                    .to(0.2, { y: (layerOut.childrenCount - 1) * 50 })
+                    .call(() => {
+                        layerOut.removeChild(icon, true);
+                    })
+                    .call(() => {
+                        if (aarr.length == 4) {
+                            layerIn.getComponent(cc.Button).interactable = false;
+                        } else {
+                            layerIn.getComponent(cc.Button).interactable = true;
+                        }
+                        layerOut.getComponent(cc.Button).interactable = true;
+                        if (this.gameOver == this.aarr.length / 4) {
+                            this.lbWin.active = true;
+                        }
                     })
                     .start();
             }
@@ -226,5 +292,39 @@ export default class NewClass extends cc.Component {
         }
         return array;
     }
-
+    resetGame() {
+        while (this.layer.childrenCount > 0) {
+            this.layer.removeAllChildren();
+        }
+        while (this.lbWin.active) {
+            this.lbWin.active = false;
+        }
+        while (this.gameOver > 0) {
+            this.gameOver = 0;
+        }
+        while (this.aarr.length > 0) {
+            this.aarr = [];
+        }
+        while (this.clickCount > 0) {
+            this.clickCount = 0;
+        }
+        this.lbGameOver.active = false;
+        this.lbWin.active = false;
+        this.buildMap();
+    }
+    netxGame() {
+        this.level++;
+        if (this.level == 2) {
+            this.arrayItem = [0, 0, -1, -1, 0, 0, -1, -1]
+        } else if (this.level == 3) {
+            this.arrayItem = [0, 0, -1, -1, 0, 0, -1, -1, -2, -2, -2, -2]
+        } else if (this.level == 4) {
+            this.arrayItem = [0, 0, -1, -1, 0, 0, -1, -1, -2, -2, -2, -2, -2, -2, -2, -2]
+        }
+        console.log("level", this.level);
+        this.resetGame();
+    }
+    onClickBack() {
+        this.moveBall
+    }
 }

@@ -520,8 +520,8 @@
     "relativePath": "resources/prefab"
   },
   "c781e3e9-a7d2-460a-8215-d348cca73f77": {
-    "asset": 1701060400283,
-    "meta": 1701079502648,
+    "asset": 1701242582411,
+    "meta": 1701306566349,
     "relativePath": "script/playGame"
   },
   "2f52957f-a321-4907-9694-c1e22b74655b": {
@@ -540,8 +540,8 @@
     "relativePath": "script/playGame/PlayGame.ts"
   },
   "55027c31-c24e-40ed-b716-2e0ce32fece1": {
-    "asset": 1699840808697,
-    "meta": 1701055396718,
+    "asset": 1701228683022,
+    "meta": 1701306566350,
     "relativePath": "resources/prefab/playGame/image"
   },
   "1354d577-105f-4f92-b18c-35f17ed39b9f": {
@@ -550,8 +550,8 @@
     "relativePath": "resources/prefab/playGame/prefab"
   },
   "dd4e4c78-52ff-47b5-ac5e-ee3e67a5539a": {
-    "asset": 1701154161600,
-    "meta": 1701154161612,
+    "asset": 1701316421349,
+    "meta": 1701316421362,
     "relativePath": "scene/MainScene.fire"
   },
   "7c1b2ec7-90bf-4b61-98c2-11b80fa391cc": {
@@ -599,19 +599,29 @@
     "meta": 1701055396771,
     "relativePath": "resources/prefab/playGame/image/haikei_4.png"
   },
-  "af9a4aa2-1295-4418-ba1b-4fe3c323db22": {
-    "asset": 1701072799645,
-    "meta": 1701072805374,
-    "relativePath": "script/playGame/Item.ts"
-  },
   "cf3d558a-15f7-45b7-b27d-27b3a1140e70": {
     "asset": 1701073276894,
     "meta": 1701073281326,
     "relativePath": "script/ItemPrefab.ts"
   },
+  "9b2d25b5-dfce-4033-9846-9719bb81138e": {
+    "asset": 1701228650728,
+    "meta": 1701228650749,
+    "relativePath": "resources/prefab/playGame/image/btn_back.png"
+  },
+  "78fc105b-8984-4471-9c0d-f77dc0e625a1": {
+    "asset": 1701228683018,
+    "meta": 1701228683039,
+    "relativePath": "resources/prefab/playGame/image/bethis.png"
+  },
+  "af9a4aa2-1295-4418-ba1b-4fe3c323db22": {
+    "asset": 1701251719168,
+    "meta": 1701251720806,
+    "relativePath": "script/playGame/Item.ts"
+  },
   "a4f9e9ef-d543-4950-941d-31c0af37e03a": {
-    "asset": 1701162346872,
-    "meta": 1701162348597,
+    "asset": 1701313709233,
+    "meta": 1701316308561,
     "relativePath": "script/playGame/newPlayGame.ts"
   }
 }

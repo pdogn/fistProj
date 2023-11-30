@@ -45,8 +45,10 @@ var Item = /** @class */ (function (_super) {
     Item.prototype.start = function () {
     };
     Item.prototype.onClickItem = function () {
-        console.log("qwer", this.idItem);
+        console.log("qwer", this.node.getComponent(cc.Button).interactable);
         this.node.emit("Click_binh", this);
+        console.log("qwer", this.node.getComponent(cc.Button).interactable);
+        console.log("qwer", this.idItem);
     };
     Item.prototype.reset = function () {
         this.listNode = new Array(4);
