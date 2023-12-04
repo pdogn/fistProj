@@ -1,22 +1,22 @@
 {
   "__type__": "cc.SpriteFrame",
   "content": {
-    "name": "ball4",
-    "texture": "1e4cd48f-a35b-48f9-9160-1e774c29d928",
+    "name": "ava-defau",
+    "texture": "e2e4f97a-ed11-4036-bea8-10a23f4378cb",
     "atlas": "",
     "rect": [
       0,
       0,
-      225,
-      225
+      164,
+      166
     ],
     "offset": [
       0,
       0
     ],
     "originalSize": [
-      225,
-      225
+      164,
+      166
     ],
     "capInsets": [
       0,

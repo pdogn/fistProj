@@ -515,8 +515,8 @@
     "relativePath": "script"
   },
   "2a8df67b-f3f9-4793-b45f-6872a1b3efab": {
-    "asset": 1700796838067,
-    "meta": 1701055396454,
+    "asset": 1701310855252,
+    "meta": 1701663544631,
     "relativePath": "resources/prefab"
   },
   "c781e3e9-a7d2-460a-8215-d348cca73f77": {
@@ -540,8 +540,8 @@
     "relativePath": "script/playGame/PlayGame.ts"
   },
   "55027c31-c24e-40ed-b716-2e0ce32fece1": {
-    "asset": 1701228683022,
-    "meta": 1701306566350,
+    "asset": 1701316652932,
+    "meta": 1701663544632,
     "relativePath": "resources/prefab/playGame/image"
   },
   "1354d577-105f-4f92-b18c-35f17ed39b9f": {
@@ -550,13 +550,13 @@
     "relativePath": "resources/prefab/playGame/prefab"
   },
   "dd4e4c78-52ff-47b5-ac5e-ee3e67a5539a": {
-    "asset": 1701316421349,
-    "meta": 1701316421362,
+    "asset": 1701666506946,
+    "meta": 1701666506959,
     "relativePath": "scene/MainScene.fire"
   },
   "7c1b2ec7-90bf-4b61-98c2-11b80fa391cc": {
-    "asset": 1701073302587,
-    "meta": 1701073302598,
+    "asset": 1701666011848,
+    "meta": 1701666011868,
     "relativePath": "resources/prefab/item.prefab"
   },
   "16f01b6e-4348-4ed5-8797-02bd137179b8": {
@@ -564,30 +564,10 @@
     "meta": 1701055396733,
     "relativePath": "resources/prefab/playGame/prefab/ball.prefab"
   },
-  "15bb926b-6c24-43c3-b539-88f5911d876b": {
-    "asset": 1699514279792,
-    "meta": 1701055396744,
-    "relativePath": "resources/prefab/playGame/image/ball2.jpeg"
-  },
-  "c1517423-d9d0-4282-accb-e80d0c805d86": {
-    "asset": 1699514279792,
-    "meta": 1701055396745,
-    "relativePath": "resources/prefab/playGame/image/ball3.jpeg"
-  },
-  "d2b64b6d-95b2-4efc-be0c-8c06d6d00509": {
-    "asset": 1699514279792,
-    "meta": 1701055396745,
-    "relativePath": "resources/prefab/playGame/image/ball.jpeg"
-  },
   "0db74c1e-20ee-4c9f-984a-58d2f6a6a1e0": {
     "asset": 1699840808691,
     "meta": 1701055396746,
     "relativePath": "resources/prefab/playGame/image/bgBtntn.jpeg"
-  },
-  "1e4cd48f-a35b-48f9-9160-1e774c29d928": {
-    "asset": 1699514279793,
-    "meta": 1701055396747,
-    "relativePath": "resources/prefab/playGame/image/ball4.jpeg"
   },
   "26b55f22-f66b-46ea-91ee-205f5fd5c2fc": {
     "asset": 1699514036298,
@@ -619,9 +599,34 @@
     "meta": 1701251720806,
     "relativePath": "script/playGame/Item.ts"
   },
+  "e2e4f97a-ed11-4036-bea8-10a23f4378cb": {
+    "asset": 1701316547034,
+    "meta": 1701316547067,
+    "relativePath": "resources/prefab/playGame/image/ava-defau.png"
+  },
+  "231f181c-9c85-4a59-ae49-a9c8aff96044": {
+    "asset": 1701316565911,
+    "meta": 1701316565926,
+    "relativePath": "resources/prefab/playGame/image/b1.png"
+  },
+  "98684337-2871-4d38-b000-6af29edd67da": {
+    "asset": 1701316570297,
+    "meta": 1701316570307,
+    "relativePath": "resources/prefab/playGame/image/b2.png"
+  },
+  "3382d526-cdec-421e-9de4-e50a1871ac1d": {
+    "asset": 1701316592350,
+    "meta": 1701316592378,
+    "relativePath": "resources/prefab/playGame/image/bg_score_star3.png"
+  },
+  "efac469d-5e82-4328-8401-e91a6b594bf6": {
+    "asset": 1701665988354,
+    "meta": 1701665988374,
+    "relativePath": "resources/prefab/playGame/image/bg-footer-merge.png"
+  },
   "a4f9e9ef-d543-4950-941d-31c0af37e03a": {
-    "asset": 1701313709233,
-    "meta": 1701316308561,
+    "asset": 1701666546922,
+    "meta": 1701666548345,
     "relativePath": "script/playGame/newPlayGame.ts"
   }
 }

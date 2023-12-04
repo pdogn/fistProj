@@ -36,14 +36,16 @@ var NewClass = /** @class */ (function (_super) {
         _this.layer1 = null;
         _this.lbWin = null;
         _this.lbGameOver = null;
+        _this.lbCount = null;
+        _this.lb = null;
         _this.mapData = [];
         _this.arrayItem = [
-            2, 2, -1, -1,
-            2, 2, -1, -1,
-            1, 1, -3, -1,
+            2, 0, 2, -1,
+            2, 2, 0, -1,
+            1, 0, 1, -1,
             3, 3, -3, -2,
             1, 1, -1, -1,
-            3, 3, -3, -2,
+            3, 3, 0, -2,
         ];
         _this.layerOut = null;
         _this.indexArrayOut = -1;
@@ -52,6 +54,8 @@ var NewClass = /** @class */ (function (_super) {
         _this.aarr = [];
         _this.clickCount = 0;
         _this.arrBack = [];
+        _this.arrGameOver = [0];
+        _this.count = 20;
         return _this;
     }
     // LIFE-CYCLE CALLBACKS:
@@ -63,12 +67,14 @@ var NewClass = /** @class */ (function (_super) {
     // update (dt) {}
     NewClass.prototype.buildMap = function () {
         var _this = this;
+        // if (this.mapData.length == 0) {
         for (var i = 0; i < this.arrayItem.length; i++) {
             if (this.arrayItem[i] >= 0) {
                 this.aarr.push(this.arrayItem[i]);
             }
         }
         this.mapData = this.sliceArr(this.arrayItem, 4);
+        // }
         console.log(this.mapData);
         var _loop_1 = function (i) {
             for (var j = 0; j < 4; j++) {
@@ -112,29 +118,30 @@ var NewClass = /** @class */ (function (_super) {
                 console.log("click chinh no ==> bay bong len ", layerItemClick.childrenCount);
                 this.moveBall(this.mapData[idItem], layerItemClick, 1, layerItemClick);
                 this.indexArrayOut = idItem;
-                this.clickCount++;
             }
         }
         else {
-            this.clickCount++;
             if (this.indexArrayOut == idItem) {
                 // chon dich den la diem bat dau
                 console.log("click chinh no lan nua ==> tha bong xuong");
                 this.moveBall(this.mapData[idItem], layerItemClick, 0, layerItemClick);
             }
             else {
+                this.clickCount++;
+                console.log("this.clickCount=-=-=-=-", this.clickCount);
                 // chon dich den la diem khac
                 console.log("onClickItem=--=-=-=", this.mapData);
                 // console.log("dich den arrItemClick: ", this.mapData[idItem]);
                 // console.log("=-=-=-=-quang00=-=-===-: ", this.layerOut);
                 // console.log("=-=-=-=-quang00=-=-===-: ", this.indexArrayOut);
                 this.mapData[this.indexArrayOut] = this.onHanlderClickLayer(this.mapData[this.indexArrayOut], this.mapData[idItem], this.layerOut, layerItemClick);
+                console.log("==============");
+                // console.log("quang0011", this.mapData);
+                this.arrBack.push(JSON.parse(JSON.stringify(this.mapData)));
+                console.log("quang001-arrBack", this.arrBack);
             }
             this.indexArrayOut = -1;
             this.layerOut = null;
-        }
-        if (this.clickCount > 8) {
-            this.lbGameOver.active = true;
         }
     };
     NewClass.prototype.onHanlderClickLayer = function (arrItem, arrItemClick, layerOut, layerIn) {
@@ -219,7 +226,8 @@ var NewClass = /** @class */ (function (_super) {
         }
         if (aarr.length == 4) {
             this.gameOver++;
-            console.log("this.gameOverthis.gameOverthis.gameOverthis.gameOver: ", this.gameOver, this.aarr.length / 4);
+            this.arrGameOver.push(this.gameOver);
+            console.log("quang99", this.arrGameOver);
         }
         var _loop_2 = function (i) {
             var icon = layerOut.children[arrIndexRemove[i]];
@@ -260,36 +268,20 @@ var NewClass = /** @class */ (function (_super) {
                         layerIn.getComponent(cc.Button).interactable = true;
                     }
                     layerOut.getComponent(cc.Button).interactable = true;
-                    if (_this.gameOver == _this.aarr.length / 4) {
-                        _this.lbWin.active = true;
-                    }
-                })
-                    .start();
-            }
-            else if (idx == 3) {
-                layerIn.getComponent(cc.Button).interactable = false;
-                layerOut.getComponent(cc.Button).interactable = false;
-                var a = icon.parent.convertToWorldSpaceAR(icon.position);
-                var b = layerIn.convertToNodeSpaceAR(a);
-                icon.setParent(layerIn);
-                icon.setPosition(b);
-                cc.tween(icon)
-                    .to(0.2, { y: p.y })
-                    .to(0.2, { x: p.x })
-                    .to(0.2, { y: (layerOut.childrenCount - 1) * 50 })
-                    .call(function () {
-                    layerOut.removeChild(icon, true);
-                })
-                    .call(function () {
-                    if (aarr.length == 4) {
-                        layerIn.getComponent(cc.Button).interactable = false;
+                    console.log("clickCount : ", _this.clickCount, _this.gameOver);
+                    _this.lbCount.string = _this.count - _this.clickCount + "";
+                    if (_this.clickCount >= _this.count && _this.gameOver !== _this.aarr.length / 4) {
+                        _this.lbGameOver.active = true;
                     }
                     else {
-                        layerIn.getComponent(cc.Button).interactable = true;
-                    }
-                    layerOut.getComponent(cc.Button).interactable = true;
-                    if (_this.gameOver == _this.aarr.length / 4) {
-                        _this.lbWin.active = true;
+                        if (_this.gameOver == _this.aarr.length / 4) {
+                            if (_this.level < 7) {
+                                _this.lbWin.active = true;
+                            }
+                            else {
+                                _this.lb.node.active = true;
+                            }
+                        }
                     }
                 })
                     .start();
@@ -336,26 +328,106 @@ var NewClass = /** @class */ (function (_super) {
         while (this.clickCount > 0) {
             this.clickCount = 0;
         }
+        this.count = 20;
+        this.lbCount.string = this.count + "";
+        this.lb.node.active = false;
         this.lbGameOver.active = false;
         this.lbWin.active = false;
+        console.log("mapData", this.mapData);
         this.buildMap();
     };
     NewClass.prototype.netxGame = function () {
         this.level++;
         if (this.level == 2) {
-            this.arrayItem = [0, 0, -1, -1, 0, 0, -1, -1];
+            this.arrayItem = [
+                1, 3, 2, 3,
+                3, 2, 0, -1,
+                1, 0, 3, 2,
+                3, 0, 3, -2,
+                1, 3, 1, -1,
+                3, 2, 0, -2,
+                -1, -1, -1, -1
+            ];
         }
         else if (this.level == 3) {
-            this.arrayItem = [0, 0, -1, -1, 0, 0, -1, -1, -2, -2, -2, -2];
+            this.arrayItem = [
+                0, 0, 1, 2,
+                1, 0, 3, 0,
+                2, 1, 0, 1,
+                0, 3, 2, -2,
+                1, 0, 1, -1,
+                3, 1, 0, -2,
+                2, 3, 1, -1,
+                -1, -1, -1, -1
+            ];
         }
         else if (this.level == 4) {
-            this.arrayItem = [0, 0, -1, -1, 0, 0, -1, -1, -2, -2, -2, -2, -2, -2, -2, -2];
+            this.arrayItem = [
+                2, 0, 2, -1,
+                1, 1, 3, -1,
+                1, 0, 2, 1,
+                0, 3, -3, -2,
+                3, 0, 1, -1,
+                3, 1, 0, -2,
+                0, 1, 0, -1,
+                2, 0, 1, -1
+            ];
+        }
+        else if (this.level == 5) {
+            this.arrayItem = [
+                1, 2, 0, -1,
+                3, 2, 1, -1,
+                1, 0, 2, 1,
+                0, 3, -3, -2,
+                3, 0, 1, -1,
+                1, 1, 0, -2,
+                0, 1, 0, -1,
+                2, 0, 3, -1
+            ];
+        }
+        else if (this.level == 6) {
+            this.arrayItem = [
+                0, 1, 1, -1,
+                2, 0, 3, -1,
+                1, 2, 2, 1,
+                0, 3, -3, -2,
+                1, 0, 1, -1,
+                3, 1, 0, -2,
+                0, 3, 0, -1,
+                1, 0, 2, -1
+            ];
+        }
+        else if (this.level == 7) {
+            this.arrayItem = [
+                2, 2, 0, 1,
+                1, 1, 3, -1,
+                1, 0, 3, 1,
+                0, 2, -3, -2,
+                1, 0, 1, -1,
+                3, 1, 0, -2,
+                0, 3, 0, -1,
+                2, 0, -1, -1
+            ];
         }
         console.log("level", this.level);
         this.resetGame();
     };
     NewClass.prototype.onClickBack = function () {
-        this.moveBall;
+        if (this.arrBack.length < 2) {
+            return;
+        }
+        if (this.arrGameOver.length < 2) {
+            return;
+        }
+        this.mapData = this.arrBack[this.arrBack.length - 2];
+        this.arrBack = this.arrBack.slice(0, this.arrBack.length - 1);
+        this.gameOver = this.arrGameOver[this.arrGameOver.length - 2];
+        this.arrGameOver = this.arrGameOver.slice(0, this.arrGameOver.length - 1);
+        console.log("quang002-arrBack", this.arrBack);
+        console.log("quang002-arrBack", this.arrGameOver);
+        console.log("quang002-arrBack", this.gameOver);
+        this.layer.removeAllChildren();
+        this.buildMap();
     };
     __decorate([
         property(cc.Node)
@@ -375,6 +447,12 @@ var NewClass = /** @class */ (function (_super) {
     __decorate([
         property(cc.Node)
     ], NewClass.prototype, "lbGameOver", void 0);
+    __decorate([
+        property(cc.Label)
+    ], NewClass.prototype, "lbCount", void 0);
+    __decorate([
+        property(cc.Label)
+    ], NewClass.prototype, "lb", void 0);
     NewClass = __decorate([
         ccclass
     ], NewClass);

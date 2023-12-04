@@ -1,22 +1,22 @@
 {
   "__type__": "cc.SpriteFrame",
   "content": {
-    "name": "ball3",
-    "texture": "c1517423-d9d0-4282-accb-e80d0c805d86",
+    "name": "bg-footer-merge",
+    "texture": "efac469d-5e82-4328-8401-e91a6b594bf6",
     "atlas": "",
     "rect": [
       0,
       0,
-      225,
-      225
+      565,
+      93
     ],
     "offset": [
       0,
       0
     ],
     "originalSize": [
-      225,
-      225
+      565,
+      93
     ],
     "capInsets": [
       0,
